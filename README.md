@@ -1,7 +1,7 @@
 # In silico Phantom Simulations for AI-powered 4D Cardiac Motion Estimation
 ## FIMH 2025 13<sup>th</sup> Functional Imaging and Modeling of the Heart International Conference
-UT Southwestern Medical Center, Dallas, TX 
-
+Venue: UT Southwestern Medical Center, Dallas, TX 
+Date: June 1, 2025
 
 This tutorial provides an introduction on generating in silico phantoms from subject-specific finite element (FE) simulations of the heart. The objective is to devise a methodology to benchmark ``ground-truth'' Cartesian displacements and thus standardize the fidelity of image-based motion mapping technologies. The repository contains the codes necessary to generate grayscale images from vtk files delineating motion of (i) a cylinder under pure torsion and (ii) mouse-specific FE simulations. As such, the attendees will be able to generate their own phantoms to design, test, and validate their own image processing methods to map four-dimensional cardiac motion.
 
