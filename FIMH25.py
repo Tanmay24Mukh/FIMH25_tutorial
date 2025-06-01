@@ -33,7 +33,12 @@ def main():
 
     # Read specific indices to adjust target temporal resolution
     start, end, skip = inputs.T[0], inputs.T[1], inputs.T[2]
-    indices = np.arange(start,end)[::skip]
+    
+    if skip!=0:
+        indices = np.arange(start,end)[::skip]
+    else:
+        indices = np.arange(start,end)
+
     vtk_mesh_files = np.array(vtk_mesh_files)[indices]
 
     # Set rasterization partmeters
