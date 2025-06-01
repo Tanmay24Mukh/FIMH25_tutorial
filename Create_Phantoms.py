@@ -9,12 +9,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from time import time
 import argparse
+import pyvista as pv
 from tqdm import tqdm
 import multiprocessing as mp
 
 from Rasterizer import Raster_Setup, Kernel
 from DataIO import Read_Data, Write_Data
 from Processes import create_images
+from Mesh import Mesh3D
 
 def create_input_images():
 
@@ -106,6 +108,47 @@ def create_input_images():
 
     end = time()
     print('Total run time is: ', end-begin)
+
+
+def create_animation(vtk_files = [], p = pv.Plotter(), store_fid = None, fps = 10):
+
+    for ind, fid in enumerate(vtk_files):
+
+        mesh = Mesh3D(mesh = Read_Data.read_mesh(fid = fid[-1]))
+        # mesh.center_and_normalize_mesh()
+        mesh.covert_point_data_to_cell_data()
+        
+        if ind == 0:
+
+            p.open_gif(store_fid, fps = fps)
+            actor1 = p.add_mesh(mesh.mesh, color='green', show_edges=True)
+            # boundary = mesh.mesh.extract_feature_edges(boundary_edges=True, non_manifold_edges=False,
+            #                                            manifold_edges=False)
+            # actor2 = p.add_mesh(boundary, color='red', line_width=5)
+           
+            p.camera_position = "iso"
+            p.camera.azimuth -= 75
+            p.camera.elevation -= 10
+            p.add_light(pv.Light(intensity=0.3))   
+
+            p.write_frame()
+
+    
+        elif ind > 0:
+            
+            
+            p.remove_actor(actor1)
+            actor1 = p.add_mesh(mesh.mesh, color='green', show_edges=True)
+            
+            # p.camera_position = "iso"
+            # p.camera.azimuth -= 75
+            # p.camera.elevation -= 10
+            # p.add_light(pv.Light(intensity=0.3))   
+
+            p.write_frame()
+    
+    p.close()
+
 
 
 def determine_inputs():

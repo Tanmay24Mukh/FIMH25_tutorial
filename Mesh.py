@@ -50,8 +50,6 @@ class Mesh3D():
         extrude.Update()
         roi_plane_with_thickness = pv.wrap(extrude.GetOutput())
 
-
-
         self.sblock = self.mesh.clip_box(roi_plane_with_thickness.bounds, invert = False)
     
     @property
